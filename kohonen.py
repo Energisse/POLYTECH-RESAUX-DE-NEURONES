@@ -15,7 +15,7 @@ from __future__ import division
 import numpy
 # Librairie d'affichage
 import matplotlib.pyplot as plt
-
+import math
 
 
 class Neuron:
@@ -240,6 +240,18 @@ class SOM:
     # On renvoie l'erreur de quantification vectorielle moyenne
     return s/nsamples
 
+  def dispertion(self):
+   #Distance moyenne entre les neurones
+    dist = 0
+    n = 0
+    for posx in range(self.gridsize[0]):
+      for posy in range(self.gridsize[1]):
+        for posx2 in range(self.gridsize[0]):
+          for posy2 in range(self.gridsize[1]):
+            dist += numpy.linalg.norm( self.map[posx][posy].weights-self.map[posx2][posy2].weights)
+            n+=1
+    return dist/n
+
 # -----------------------------------------------------------------------------
 if __name__ == '__main__':
   # Création d'un réseau avec une entrée (2,1) et une carte (10,10)
@@ -264,7 +276,7 @@ if __name__ == '__main__':
   # Ensemble de données 1
   samples = numpy.random.random((nsamples,2,1))*2-1
   # Ensemble de données 2
-#  samples1 = -numpy.random.random((nsamples//3,2,1))
+#  saDmples1 = -numpy.random.random((nsamples//3,2,1))
 #  samples2 = numpy.random.random((nsamples//3,2,1))
 #  samples2[:,0,:] -= 1
 #  samples3 = numpy.random.random((nsamples//3,2,1))
@@ -337,4 +349,5 @@ if __name__ == '__main__':
   network.plot()
   # Affichage de l'erreur de quantification vectorielle moyenne après apprentissage
   print("erreur de quantification vectorielle moyenne ",network.MSE(samples))
+  print("dispertion ",network.dispertion())
 
