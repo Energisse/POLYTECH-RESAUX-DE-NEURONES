@@ -45,8 +45,7 @@ class Neuron:
     @param x: entrée du neurone
     @type x: numpy array
     '''
-    # TODO
-    self.y = None
+    self.y = numpy.linalg.norm(self.weights-x)
 
   def learn(self,eta,sigma,posxbmu,posybmu,x):
     '''
@@ -62,8 +61,8 @@ class Neuron:
     @param x: entrée du neurone
     @type x: numpy array
     '''
-    # TODO (attention à ne pas changer la partie à gauche du =)
-    self.weights[:] = numpy.random.random(self.weights.shape)
+    dist = (self.posx - posxbmu) ** 2 + (self.posy - posybmu) ** 2
+    self.weights[:] += eta * numpy.exp(-dist / (2 * sigma ** 2)) * (x - self.weights[:])
 
 
 class SOM:
