@@ -1,5 +1,6 @@
-# coding: utf8
 #!/usr/bin/env python
+
+# coding: utf8
 # ------------------------------------------------------------------------
 # Carte de Kohonen
 # Écrit par Mathieu Lefort
