@@ -394,6 +394,6 @@ if __name__ == '__main__':
   # Affichage des poids du réseau
   network.plot()
   # Affichage de l'erreur de quantification vectorielle moyenne après apprentissage
+  print(f"η = {ETA}, σ = {SIGMA}, N = {N}")
   print("erreur de quantification vectorielle moyenne ",network.MSE(samples))
   print("dispertion ",network.dispertion())
-
