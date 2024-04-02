@@ -256,7 +256,7 @@ class SOM:
 if __name__ == '__main__':
   # Création d'un réseau avec une entrée (2,1) et une carte (10,10)
   #TODO mettre à jour la taille des données d'entrée pour les données robotiques
-  network = SOM((2,1),(10,10))
+  network = SOM((2,1),(5,10))
   # PARAMÈTRES DU RÉSEAU
   # Taux d'apprentissage
   ETA = 0.05
@@ -369,16 +369,16 @@ if __name__ == '__main__':
     # Affichage de la figure
     plt.show()
   # Boucle d'apprentissage
-  for i in range(N+1):
+  for i in range(N + 1):
     # Choix d'un exemple aléatoire pour l'entrée courante
     index = numpy.random.randint(nsamples)
     x = samples[index].flatten()
     # Calcul de l'activité du réseau
     network.compute(x)
     # Modification des poids du réseau
-    network.learn(ETA,SIGMA,x)
+    network.learn(ETA, SIGMA, x)
     # Mise à jour de l'affichage
-    if VERBOSE and i%NAFFICHAGE==0:
+    if VERBOSE and i % NAFFICHAGE == 0:
       # Effacement du contenu de la figure
       plt.clf()
       # Remplissage de la figure
@@ -395,5 +395,5 @@ if __name__ == '__main__':
   network.plot()
   # Affichage de l'erreur de quantification vectorielle moyenne après apprentissage
   print(f"η = {ETA}, σ = {SIGMA}, N = {N}")
-  print("erreur de quantification vectorielle moyenne ",network.MSE(samples))
-  print("dispertion ",network.dispertion())
+  print("erreur de quantification vectorielle moyenne ", network.MSE(samples))
+  print("dispertion ", network.dispertion())
