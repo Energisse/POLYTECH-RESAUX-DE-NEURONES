@@ -175,7 +175,10 @@ Selon nous, plus la carte sera grande, et plus les neurones pourront prendre de 
 Plus la taille de la carte augmente, plus l'erreur de quantification vectorielle diminue, et plus la disposition des neurones est lâche.
 On remarque cependant que inversement, plus la taille de l'image augmente plus la dispertion des poids va augmenter.
 
-Le choix de la carte va se faire selon ce que nous souhaitons représenter et en accord avec le problème à résoudre, selon le fait que nous voulons accorder de l'importance à EQV ou la dispertion des poids.
+Le choix de la carte va se faire selon ce que nous souhaitons représenter et en accord avec le problème à résoudre, selon le fait que nous voulons accorder de l'importance à EQV ou la dispertion des poids. A partir de `10x10`, on constate que la dispertion des poids est à 0.828, et elle augmente, mais petit à petit. Néanmoins, EQV est très faible (0.0255). Donc nous pourrions gardé cette valeur de `10x10`. 
+
+
 
 -   jeu de données
+
 
