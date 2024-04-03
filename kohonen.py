@@ -125,6 +125,7 @@ class SOM:
     '''
     # Calcul du neurone vainqueur
     bmux,bmuy = numpy.unravel_index(numpy.argmin(self.activitymap),self.gridsize)
+    #TODO : deplacer les neurones de 0.5
     # Mise à jour des poids de chaque neurone
     for posx in range(self.gridsize[0]):
       for posy in range(self.gridsize[1]):
@@ -147,10 +148,23 @@ class SOM:
     # Affichage des poids
     plt.scatter(w[:,:,0].flatten(),w[:,:,1].flatten(),c='k')
     # Affichage de la grille
-    for i in range(w.shape[0]):
-      plt.plot(w[i,:,0],w[i,:,1],'k',linewidth=1.)
+    # for i in range(w.shape[0]):
+    #   plt.plot(w[i,:,0],w[i,:,1],'k',linewidth=1.)
+    # for i in range(w.shape[1]):
+    #   plt.plot(w[:,i,0],w[:,i,1],'k',linewidth=1.)
+    for i in range(w.shape[0]-1):
+      for p in range(w[i].shape[0]-1) :
+        xpoints = numpy.array([w[i,p,0], w[i+1,p+1,0]])
+        ypoints = numpy.array([w[i,p,1], w[i+1,p+1,1]])
+        if p > 1:
+          numpy.append(xpoints,[w[i,p,0], w[i+1,p-1,0]])
+          numpy.append(ypoints,[w[i,p,1], w[i+1,p-1,1]])
+        plt.plot(xpoints,ypoints,'b',linewidth=1.)
+    # TODO
     for i in range(w.shape[1]):
       plt.plot(w[:,i,0],w[:,i,1],'k',linewidth=1.)
+
+
     # Modification des limites de l'affichage
     plt.xlim(-1,1)
     plt.ylim(-1,1)
@@ -256,14 +270,14 @@ class SOM:
 if __name__ == '__main__':
   # Création d'un réseau avec une entrée (2,1) et une carte (10,10)
   #TODO mettre à jour la taille des données d'entrée pour les données robotiques
-  network = SOM((2,1),(5,10))
+  network = SOM((2,1),(10,10))
   # PARAMÈTRES DU RÉSEAU
   # Taux d'apprentissage
   ETA = 0.05
   # Largeur du voisinage
   SIGMA = 1.4
   # Nombre de pas de temps d'apprentissage
-  N = 30000
+  N = 50000
   # Affichage interactif de l'évolution du réseau 
   #TODO à mettre à faux pour que les simulations aillent plus vite
   VERBOSE = True
