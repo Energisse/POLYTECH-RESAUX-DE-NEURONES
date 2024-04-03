@@ -129,3 +129,53 @@ Le poids final restant une moyenne pondérée des valeurs de X1 et X2, le poids 
 ??????????????????????????????????????
 
 
+# 4 Etude pratique
+
+## 4.3 Analyse de l’algorithme
+Pour chacune des grandeurs ci dessous, nous présenterons dans cette partie différents tests réalisés en faisant varier les paramètres observés (η, σ, N ...) afin de confronter nos observation réelles à notre étude théorique précédente. Pour ce faire, nous observerons l'erreur de quantification vectorielle, et la dispertion des poids, et suivant les différentes valeurs du paramètre étudié, nous stockerons dans le fichier excel `courbe.xlsx`, ces valeurs dans des tableaux, et nous afficherons dans notre analyse, les courbes correspondantes. De plus, nos valeurs par défaut sont *σ = 1.4, N = 30000, grille = 10x10 et le jeu de données = numéro 1*. Donc, lorsque ne passerons de l'étude d'un paramètre à un autre, nous remetrons la valeur initial du paramètre observé précedement.
+
+-   taux d’apprentissage η
+
+Selon nous, η va influer sur la capacité des neurones à apprendre des entrées, mais des valeurs trop basses ou trop élevées pourrait être néfaste à cet apprentissage.
+
+![alt text](img/influence_eta.png)
+
+On constate que plus le taux d’apprentissage η augmente, plus la dispertion des poids augmentes. Quant à l'erreur de quantification vectorielle (EQV), pour η = 0, EQV est grand. De plus, il est difficile de le voir sur la courbe, mais dans le fichier excel, plus η augmente, plus EQV augmente petit à petit.
+
+En executant le code, nous avons aussi constaté que le taux d'apprentissage influe sur la disposition des neurones : très resserrée quand η est très bas, et au contraire moins resserés quand η dépasse 1. Enfin, la dispertion des poids semble à peu près stable quand η ∈ [0,05; 1] avec une valeur moyenne d'environ 0,883 dans cette intervalle.
+
+-   largeur du voisinage σ
+
+Selon nous, σ influe sur la disposition des neurones sur la carte, c'est-à-dire s'ils seront plutôt resserrés entre eux ou non.
+
+![alt text](img/influence_sigma.png)
+
+Sur la courbe ci dessus, on constate que plus σ augmente, plus l'erreur de quantification vectorielle augmente également, mais plus la dispertion des poids diminue : les neurones se retrouvent davantage resserrés.
+
+L'idéal serait alors ici de choisir une valeur ni trop élevée ni trop basse pour σ, permettant de diminuer l'erreur de quantification vectorielle, tout en conservant une structure assez resserrée. Donc, sur la courbe on voit que le point d'absice σ où la dispertion et l'erreur de quantification se croise, est à σ = 6.
+
+
+-   nombre de pas de temps d’apprentissage N
+
+Selon nous, N est lié à la qualité de l'apprentissage des neurones, c'est-à-dire, que plus N sera grand, plus les neurones auront le temps d'apprendre, et plus leur disposition se stabilisera.
+
+![alt text](img/influence_N.png)
+
+Sur la courbe, et après avoir éxecuté notre code pour différente valeur de N, nous avons constaté que plus le temps d'apprentissage est élevé, et plus les neurones vont pouvoir apprendre, ce qui entraîne une baisse significative de l'erreur de quantification vectorielle.
+Cependant, l'auto-organisation semble se stabiliser dès N = 2500, avec une dispertion des poids plutot élevé (environ 0,87).
+
+Il nous apparaît donc évident de choisir une valeur de N supérieure à ce seuil de stabilisation, puisque la disposition des neurones ne changera pas davantage, mais qui permettra de baisser encore quelque peu l'erreur de quantification vectorielle.
+
+-   taille et forme de la carte
+
+Selon nous, plus la carte sera grande, et plus les neurones pourront prendre de la place, entraînant ainsi un relâchement dans leur disposition interne.
+
+![alt text](img/influence_taille_forme.png)
+
+Plus la taille de la carte augmente, plus l'erreur de quantification vectorielle diminue, et plus la disposition des neurones est lâche.
+On remarque cependant que inversement, plus la taille de l'image augmente plus la dispertion des poids va augmenter.
+
+Le choix de la carte va se faire selon ce que nous souhaitons représenter et en accord avec le problème à résoudre, selon le fait que nous voulons accorder de l'importance à EQV ou la dispertion des poids.
+
+-   jeu de données
+
