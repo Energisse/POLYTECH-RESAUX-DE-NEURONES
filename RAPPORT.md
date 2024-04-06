@@ -179,6 +179,10 @@ Le choix de la carte va se faire selon ce que nous souhaitons représenter et en
 
 
 
--   jeu de données
+- jeu de données
 
+- La topologie de la carte
 
+En changeant la topologie de la carte les poids des neuronnes devrait se repartir en suivant cette topologie. Par exemple, si on prend une carte en forme de hexagone, les poids des neurones devraient se repartir en suivant cette forme.
+
+![alt text](img/topologie_hexagone.png)

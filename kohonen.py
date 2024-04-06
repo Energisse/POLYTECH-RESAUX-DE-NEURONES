@@ -64,10 +64,8 @@ class Neuron:
     dist = (self.posx - posxbmu) ** 2 + (self.posy - posybmu) ** 2
     self.weights[:] += eta * numpy.exp(-dist / (2 * sigma ** 2)) * (x - self.weights[:])
 
-
 class SOM:
   ''' Classe implémentant une carte de Kohonen. '''
-
   def __init__(self, inputsize, gridsize):
     '''
     @summary: Création du réseau
@@ -125,7 +123,7 @@ class SOM:
     '''
     # Calcul du neurone vainqueur
     bmux,bmuy = numpy.unravel_index(numpy.argmin(self.activitymap),self.gridsize)
-    #TODO : deplacer les neurones de 0.5
+    
     # Mise à jour des poids de chaque neurone
     for posx in range(self.gridsize[0]):
       for posy in range(self.gridsize[1]):
@@ -148,23 +146,10 @@ class SOM:
     # Affichage des poids
     plt.scatter(w[:,:,0].flatten(),w[:,:,1].flatten(),c='k')
     # Affichage de la grille
-    # for i in range(w.shape[0]):
-    #   plt.plot(w[i,:,0],w[i,:,1],'k',linewidth=1.)
-    # for i in range(w.shape[1]):
-    #   plt.plot(w[:,i,0],w[:,i,1],'k',linewidth=1.)
-    for i in range(w.shape[0]-1):
-      for p in range(w[i].shape[0]-1) :
-        xpoints = numpy.array([w[i,p,0], w[i+1,p+1,0]])
-        ypoints = numpy.array([w[i,p,1], w[i+1,p+1,1]])
-        if p > 1:
-          numpy.append(xpoints,[w[i,p,0], w[i+1,p-1,0]])
-          numpy.append(ypoints,[w[i,p,1], w[i+1,p-1,1]])
-        plt.plot(xpoints,ypoints,'b',linewidth=1.)
-    # TODO
+    for i in range(w.shape[0]):
+      plt.plot(w[i,:,0],w[i,:,1],'k',linewidth=1.)
     for i in range(w.shape[1]):
       plt.plot(w[:,i,0],w[:,i,1],'k',linewidth=1.)
-
-
     # Modification des limites de l'affichage
     plt.xlim(-1,1)
     plt.ylim(-1,1)
@@ -265,6 +250,76 @@ class SOM:
             dist += numpy.linalg.norm( self.map[posx][posy].weights-self.map[posx2][posy2].weights)
             n+=1
     return dist/n
+
+class SOM_HEXA(SOM):
+  ''' Classe implémentant une carte de Kohonen. '''
+
+  def __init__(self, inputsize, gridsize):
+    super().__init__(inputsize, gridsize)
+    for posx in range(gridsize[0]):
+      for posy in range(gridsize[1]):
+        if(posy%2):
+          self.map[posx][posy].posx -= 0.5
+
+  def learn(self,eta,sigma,x):
+    '''
+    @summary: Modifie les poids de la carte selon la règle de Kohonen
+    @param eta: taux d'apprentissage
+    @type eta: float
+    @param sigma: largeur du voisinage
+    @type sigma: float
+    @param x: entrée de la carte
+    @type x: numpy array
+    '''
+    # Calcul du neurone vainqueur
+    bmux,bmuy = numpy.unravel_index(numpy.argmin(self.activitymap),self.gridsize)
+    
+    if(bmuy%2):
+      bmux -= 0.5
+    # Mise à jour des poids de chaque neurone
+    for posx in range(self.gridsize[0]):
+      for posy in range(self.gridsize[1]):
+        self.map[posx][posy].learn(eta,sigma,bmux,bmuy,x)
+    
+
+  def scatter_plot(self,interactive=False):
+    '''
+    @summary: Affichage du réseau dans l'espace d'entrée (utilisable dans le cas d'entrée à deux dimensions et d'une carte avec une topologie de grille carrée)
+    @param interactive: Indique si l'affichage se fait en mode interactif
+    @type interactive: boolean
+    '''
+    # Création de la figure
+    if not interactive:
+      plt.figure()
+    # Récupération des poids
+    w = numpy.array(self.weightsmap)
+    # Affichage des poids
+    plt.scatter(w[:,:,0].flatten(),w[:,:,1].flatten(),c='k')
+    # Affichage de la grille
+    for i in range(w.shape[0]):
+      plt.plot(w[i,:,0],w[i,:,1],'k',linewidth=1.)
+    for i in range(w.shape[1]):
+      plt.plot(w[:,i,0],w[:,i,1],'k',linewidth=1.)
+    for i in range(0,w.shape[0]-1):
+      # Premiere diagonale
+      for p in range(2,w[i].shape[0],2) :
+        xpoints = numpy.array([w[i+1,p-1,0], w[i,p,0]])
+        ypoints = numpy.array([w[i+1,p-1,1], w[i,p,1]])
+        plt.plot(xpoints,ypoints,'k',linewidth=1.)
+      for p in range(0,w[i].shape[0]-1,2) :
+        xpoints = numpy.array([w[i,p,0], w[i+1,p+1,0]])
+        ypoints = numpy.array([w[i,p,1], w[i+1,p+1,1]])
+        plt.plot(xpoints,ypoints,'k',linewidth=1.)
+
+    # Modification des limites de l'affichage
+    plt.xlim(-1,1)
+    plt.ylim(-1,1)
+    # Affichage du titre de la figure
+    plt.suptitle('Poids dans l\'espace d\'entree')
+    # Affichage de la figure
+    if not interactive:
+      plt.show()
+
 
 # -----------------------------------------------------------------------------
 if __name__ == '__main__':
