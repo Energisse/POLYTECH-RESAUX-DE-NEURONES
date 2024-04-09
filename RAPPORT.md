@@ -8,13 +8,8 @@
 
 ![alt text](img/formule1.png)
 
-Or il est dit que 
-
-
-
 
 ### Dans le cas où η = 0 quelle sera la prochaine valeur des poids du neurone gagnant ?
-
 
 
 Si η = 0, alors nous avons :
@@ -132,7 +127,7 @@ Le poids final restant une moyenne pondérée des valeurs de X1 et X2, le poids 
 # 4 Etude pratique
 
 ## 4.3 Analyse de l’algorithme
-Pour chacune des grandeurs ci dessous, nous présenterons dans cette partie différents tests réalisés en faisant varier les paramètres observés (η, σ, N ...) afin de confronter nos observation réelles à notre étude théorique précédente. Pour ce faire, nous observerons l'erreur de quantification vectorielle, et la dispertion des poids, et suivant les différentes valeurs du paramètre étudié, nous stockerons dans le fichier excel `courbe.xlsx`, ces valeurs dans des tableaux, et nous afficherons dans notre analyse, les courbes correspondantes. De plus, nos valeurs par défaut sont *σ = 1.4, N = 30000, grille = 10x10 et le jeu de données = numéro 1*. Donc, lorsque ne passerons de l'étude d'un paramètre à un autre, nous remetrons la valeur initial du paramètre observé précedement.
+Pour chacune des grandeurs ci dessous, nous présenterons dans cette partie différents tests réalisés en faisant varier les paramètres observés (η, σ, N ...) afin de confronter nos observation réelles à notre étude théorique précédente. Pour ce faire, nous observerons l'erreur de quantification vectorielle, et la dispertion des poids, et suivant les différentes valeurs du paramètre étudié, nous stockerons dans le fichier excel `courbe.xlsx`, ces valeurs dans des tableaux, et nous afficherons dans notre analyse, les courbes correspondantes. De plus, nos valeurs par défaut sont *η = 0.05, σ = 1.4, N = 30000, grille = 10x10 et le jeu de données = numéro 1*. Donc, lorsque ne passerons de l'étude d'un paramètre à un autre, nous remetrons la valeur initial du paramètre observé précedement.
 
 -   taux d’apprentissage η
 
@@ -179,7 +174,16 @@ Le choix de la carte va se faire selon ce que nous souhaitons représenter et en
 
 
 
-- jeu de données
+-   jeu de données
+
+Selon nous, les jeux de données vont influer sur la disposition des neurones sur la carte, étant donné que les dispositions des données d'entrée seront différentes. 
+
+
+|                       | Numéro du jeu de données | Jeu de données                                     | Erreur de quantification vectorielle | Dispertion des poids |
+|-----------------------|--------------------------|----------------------------------------------------|--------------------------------------|----------------------|
+| **1**                 | 1                        | ![Jeu de données 1](img/jeu_de_données_1.png)     | 0,01953832                           | 0,878051739          |
+| **2**                 | 2                        | ![Jeu de données 2](img/jeu_de_données_2.png)     | 0,019072294                          | 0,804402386          |
+| **3**                 | 3                        | ![Jeu de données 3](img/jeu_de_données_3.png)     | 0,014898156                          | 0,785508665          |
 
 - La topologie de la carte
 

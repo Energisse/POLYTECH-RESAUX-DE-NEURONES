@@ -367,28 +367,28 @@ if __name__ == '__main__':
   # Affichage des données (pour les ensembles 1, 2 et 3)
 
   #Creeper
-  # samples1 = numpy.random.random((nsamples//5,2,1))/ 2
-  # samples1[:,0,:] -= 0.75
-  # samples1[:,1,:] += 0.25
-  # samples2 = numpy.random.random((nsamples//5,2,1))/2
-  # samples2[:,1,:] += 0.25
-  # samples2[:,0,:] += 0.25
-  # samples3 = numpy.random.random((nsamples//(20//6),2,1))
-  # samples3[:,0,:] /= 2 
-  # samples3[:,0,:] -=0.25
-  # samples3[:,1,:] /= 1.33
-  # samples3[:,1,:] -=0.5
+  samples1 = numpy.random.random((nsamples//5,2,1))/ 2
+  samples1[:,0,:] -= 0.75
+  samples1[:,1,:] += 0.25
+  samples2 = numpy.random.random((nsamples//5,2,1))/2
+  samples2[:,1,:] += 0.25
+  samples2[:,0,:] += 0.25
+  samples3 = numpy.random.random((nsamples//(20//6),2,1))
+  samples3[:,0,:] /= 2 
+  samples3[:,0,:] -=0.25
+  samples3[:,1,:] /= 1.33
+  samples3[:,1,:] -=0.5
   
-  # samples4 = -numpy.random.random((nsamples//(20//3),2,1))
-  # samples4[:,0,:] /= 4
-  # samples4[:,0,:] -= 0.25
-  # samples4[:,1,:] /= 1.33
-  # samples5 = numpy.random.random((nsamples//(20//3),2,1))
-  # samples5[:,1,:] -= 1
-  # samples5[:,0,:] /= 4
-  # samples5[:,0,:] += 0.25
-  # samples5[:,1,:] /= 1.33
-  # samples = numpy.concatenate((samples1,samples2,samples3,samples4,samples5))
+  samples4 = -numpy.random.random((nsamples//(20//3),2,1))
+  samples4[:,0,:] /= 4
+  samples4[:,0,:] -= 0.25
+  samples4[:,1,:] /= 1.33
+  samples5 = numpy.random.random((nsamples//(20//3),2,1))
+  samples5[:,1,:] -= 1
+  samples5[:,0,:] /= 4
+  samples5[:,0,:] += 0.25
+  samples5[:,1,:] /= 1.33
+  samples = numpy.concatenate((samples1,samples2,samples3,samples4,samples5))
 
   #Centrer
   # samples = numpy.random.random((nsamples,2,1))/2
