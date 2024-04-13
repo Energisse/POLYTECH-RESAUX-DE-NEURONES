@@ -16,20 +16,22 @@ Si η = 0, alors nous avons :
 
 ![alt text](img/formule2.png)
 
-Selon la formule ci-dessus, si η = 0, alors ∆wji = 0 : le poids du neurone gagnant n'est donc pas mis à jour.
+Selon la formule ci-dessus, si η = 0, alors ∆wji = 0 : le poids d'aucun neurone ne sera mis à jour.
 Par conséquent, la prochaine valeur des poids sera simplement égale à leur valeur courante.
 
 ### Même question dans le cas où η = 1.
 
-Dans le cas où η = 1, la mise à jour des poids pour le neurone gagnant est maximale. 
-De ce fait, la prochaine valeur pour le neurone gagnant sera égale à sa valeur actuelle, additionnée à la différence entre l'entrée et les poids actuels du neurone gagnant.
-Or, la partie de la formule générale ci-dessus nous donne 
+Dans ce cas, on s'intéresse uniquement au neurone gagnant.
+Donc j-j* = 0, et la formule devient :
 
 ![alt text](img/formule0.png)
 
 *Donc nous avons :* 
 
 ![alt text](img/formule3.png)
+
+Dans le cas où η = 1, la mise à jour des poids pour le neurone gagnant est maximale. 
+De ce fait, la prochaine valeur pour le neurone gagnant sera égale à sa valeur actuelle, additionnée à la différence entre l'entrée et les poids actuels du neurone gagnant.
 
 ### Dans le cas où η ∈]0, 1[ (paramétrisation “normale”) où se situera le nouveau poids par rapport à W∗ et X en fonction de η (formule mathématique simple ou explication géométrique) ?
 
@@ -45,12 +47,12 @@ Plus η est petit, plus le déplacement est faible, et plus le nouveau poids ser
 Le déplacement le long de cette droite diffère donc selon la valeur de η :
 Plus η est petit, plus le déplacement est faible, et plus le nouveau poids sera proche de W(t), mais plus η est grand, plus le déplacement sera important, et plus le nouveau poids s'éloignera de W(t) pour aller vers la valeur d'entrée.
 
+Donc plus η est grand, plus le reseau apprendra vite, mais plus il y a de risque de ne pas converger vers la solution optimale. A l'inverse, plus η est petit, plus le reseau apprendra lentement, mais plus il y a de chance de converger vers la solution optimale.
+
 ### Que va-t-il se passer si η > 1 ?
 
 Si η > 1, le taux d'apprentissage sera très élevé, et le nouveau poids sera situé au-delà de X par rapport à W∗.
 De ce fait, l'ajustement du poids sera amplifié, ce qui signifie que le poids se déplacera plus rapidement vers la position de X.
-
-Cela va en général conduire à une convergence plus rapide du réseau, avec également des risques d'instabilités si les poids oscillent trop fortement autour de la position optimale.
 
 ## 3.2 Influence de σ
 
@@ -58,7 +60,7 @@ Cela va en général conduire à une convergence plus rapide du réseau, avec é
 
 ![alt text](img/formule5.png)
 
-Si σ augmente, la formule ci-dessus va donc tendre vers 1. De ce fait, l'augmentation de σ va permettre de se rapprocher de plus en plus de la valeur d'entrée et de l'apprendre davantage.
+Si σ augmente,alors l'exposant tends vers -0 et la formule ci-dessus va donc tendre vers 1. De ce fait, l'augmentation de σ va permettre de se rapprocher de plus en plus de la valeur d'entrée et de l'apprendre davantage.
 
 ### Si σ est plus grand, à convergence, l’auto-organisation obtenue sera-t-elle donc plus “resserrée” (i.e. une distance plus faible entre les poids des neurones proches) ou plus “lâche” ?
 
@@ -67,17 +69,8 @@ Les points convergeant vers un seul et même poids, ils vont donc devenir de plu
 
 ### Quelle mesure (formule mathématique qui sera à implémenter dans la section 4) pourrait quantifier ce phénomène et donc mesurer l’influence de σ sur le comportement de l’algorithme ?
 
-Pour quantifier ce phénomène, il serait possible d'utiliser la variance des poids des neurones voisins.
-La variance étant un outil de mesure de la dispersion des données, elle est tout à fait adaptée à la quantification de l'effet "resserré" ou "lâche" de l'auto-organisation des neurones.
-Ainsi, plus σ est grand, plus la variance des poids sera faible, étant donné que les neurones seront davantage "resserrés" entre eux.
-
-Cette mesure est donnée par la formule ci-dessous :
-
-![alt text](img/formule6.png)
-
-avec `wi` le poids du neurone i et `w barre` la moyenne des poids des neurones.
-
-Il est également possible d'appliquer la formule suivante : 
+Pour quantifier ce phénomène, il est possible de calculer la distance moyenne entre tous les poids des neurones de la carte.
+Ainsi, plus la valeur de cette distance est faible, plus les neurones sont resserrés, et inversement.
 
 ![alt text](img/formule7.png)
 
@@ -116,7 +109,7 @@ Dans ce cas précis, le poids du neurone dépendra de chaque entrée, notament a
 
 ### Reconsidérons maintenant le cas d’une carte avec plusieurs neurones en se focalisant sur un neurone quelconque. Quels exemples apprend ce neurone et avec quelle “force” ?
 
-Dans ce cas précis, le neurone en question sera attiré par chaque exemple, mais de facon différente, selon la distance avec le neurone gagnant. Cela veut donc dire que plus le neurone en question sera proche du neurone gagnant, plus il sera attiré vers lui.
+Dans ce cas précis, le neurone en question sera attiré par chaque exemple, mais de facon différente, selon la distance avec le neurone gagnant. Cela veut donc dire que plus le neurone en question sera proche du neurone gagnant, plus il sera attiré vers la valeur de l'entrée.
 
 
 ### En déduire comment vont se répartir les neurones d’une carte à plusieurs neurones recevant des données d’une base d’apprentissage en fonction de la densité des données. Pour rappel, la mesure de quantification vectorielle permet de mesurer ce phénomène.
@@ -199,7 +192,7 @@ Pour le jeu de données 3, on peut voir ci-dessous que le côté en haut à droi
 
 ![alt text](img/jeu_de_données_fin_3.png)
 
-Pour le jeu de données 4, on peut voir ci-dessous ???????????????????????????????????????????????????????????????????????????????
+Pour le jeu de données 4, on peut voir ci-dessous que les poids des neurones sont bien plus resserrés que dans les zone où la donnée est plus dense.
 
 ![alt text](img/jeu_de_données_fin_4.png)
 
@@ -208,6 +201,15 @@ Pour le jeu de données 4, on peut voir ci-dessous ?????????????????????????????
 
 - La topologie de la carte
 
-En changeant la topologie de la carte les poids des neuronnes devrait se repartir en suivant cette topologie. Par exemple, si on prend une carte en forme de hexagone, les poids des neurones devraient se repartir en suivant cette forme.
+En changeant la topologie de la carte les poids des neuronnes se repartissent différemment. Par exemple, en passant d'une topologie rectangulaire à une topologie hexagonale, les poids des neurones se repartissent de manière hexagonale.
 
 ![alt text](img/topologie_hexagone.png)
+
+## 4.4 Bras robotique
+
+Afin de retrouver la predire la position qu’aura le bras ́etant donne une position
+motrice il suffit juste de prendre le neuronne gagnant en ne prennant que en compte les 2 premiers poids de chaque neuronne. Ainsi, on peut retrouver la position motrice du bras en recuperant les 2 derniers poids du neuronne gagnant.
+
+Pour predire la position motrice ́etant donne une position spatiale il faut aussi prendre le neuronne gagnant mais en prenant en compte les 2 derniers poids de chaque neuronne. Ainsi, on peut retrouver la position spatiale du bras en recuperant les 2 premiers poids du neuronne gagnant.
+
+Afin de prédire la suite des positions du bras, il suffit de tracer une droite entre les deux positions motrices et spatiales et la parcourir en en prenant des points intermédiaires où le neuronne gagnant change. Ainsi on peut prédire la suite des positions du bras en fonction des neurones gagnants et des poids associés.

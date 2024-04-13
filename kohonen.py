@@ -251,6 +251,64 @@ class SOM:
             n+=1
     return dist/n
 
+  def predict_position_spatiale(self, motrice_position):
+    '''
+    @summary: Prédit la position spatiale d'après une position motrice.
+    @param motrice_position: Vecteur d'entrée.
+    @type motrice_position: numpy.ndarray
+    '''
+    w = numpy.array(self.weightsmap)
+    reshaped_coords = motrice_position[:2].reshape(1, 1, 2)
+
+    distances = numpy.linalg.norm(w[:, :, :2] - reshaped_coords, axis=2)
+
+    posX,posY = numpy.unravel_index(numpy.argmin(distances), self.gridsize)
+    return w[posX,posY, 2:]
+
+  def predict_position_motrice(self, spatiale_position):
+      '''
+      @summary: Prédit la position motrice d'après une position spatiale.
+      @param spatiale_position: Vecteur d'entrée.
+      @type spatiale_position: numpy.ndarray
+      '''
+      w = numpy.array(self.weightsmap)
+      reshaped_coords = spatiale_position[2:].reshape((1, 1, 2))
+
+      distances = numpy.linalg.norm(w[:, :, 2:] - reshaped_coords, axis=2)
+      commandeX,commandeY = numpy.unravel_index(numpy.argmin(distances), distances.shape)
+
+      return w[commandeX, commandeY, :2]
+
+  def predict_trajectory(self, motrice_pos1 , motrice_pos2 , step = 0.1):
+    '''
+    @summary: Prédit la trajectoire entre deux positions motrices.
+    @param motrice_pos1: Vecteur d'entrée.
+    @type motrice_pos1: numpy.ndarray
+    @param motrice_pos2: Vecteur d'entrée.
+    @type motrice_pos2: numpy.ndarray
+    @param step: Pas de déplacement.
+    '''
+    # Position spatiale initiale
+    base_spatial_pos = self.predict_position_spatiale(motrice_pos1)
+    trajectory = [base_spatial_pos]
+
+    # Diviser l'intervalle entre θ1 et θ'1 en pas de déplacement égaux
+    for theta1 in numpy.arange(motrice_pos1[0], motrice_pos2[0], step):
+        # Calculer de θ2 par interpolation linéaire
+        theta2 = numpy.interp(theta1, 
+          [motrice_pos1[0], motrice_pos2[0]],
+          [motrice_pos1[1], motrice_pos2[1]]
+        )
+
+        # Prédiction de la position spatiale actuelle
+        current_spatial_pos = self.predict_position_spatiale(numpy.array([theta1, theta2]))
+        if(len(trajectory) > 0 and current_spatial_pos[0] == trajectory[-1][0] and  current_spatial_pos[1] == trajectory[-1][1]):
+          continue
+
+        trajectory.append(current_spatial_pos)
+
+    return trajectory
+    
 class SOM_HEXA(SOM):
   ''' Classe implémentant une carte de Kohonen. '''
 
@@ -320,12 +378,11 @@ class SOM_HEXA(SOM):
     if not interactive:
       plt.show()
 
-
 # -----------------------------------------------------------------------------
 if __name__ == '__main__':
   # Création d'un réseau avec une entrée (2,1) et une carte (10,10)
   #TODO mettre à jour la taille des données d'entrée pour les données robotiques
-  network = SOM((2,1),(10,10))
+  network = SOM((4,1),(10,10))
   # PARAMÈTRES DU RÉSEAU
   # Taux d'apprentissage
   ETA = 0.05
@@ -358,12 +415,12 @@ if __name__ == '__main__':
 #  samples2[:,1,:] -= 1
 #  samples = numpy.concatenate((samples1,samples2))
   # Ensemble de données robotiques
-#  samples = numpy.random.random((nsamples,4,1))
-#  samples[:,0:2,:] *= numpy.pi
-#  l1 = 0.7
-#  l2 = 0.3
-#  samples[:,2,:] = l1*numpy.cos(samples[:,0,:])+l2*numpy.cos(samples[:,0,:]+samples[:,1,:])
-#  samples[:,3,:] = l1*numpy.sin(samples[:,0,:])+l2*numpy.sin(samples[:,0,:]+samples[:,1,:])
+  samples = numpy.random.random((nsamples,4,1))
+  samples[:,0:2,:] *= numpy.pi
+  l1 = 0.7
+  l2 = 0.3
+  samples[:,2,:] = l1*numpy.cos(samples[:,0,:])+l2*numpy.cos(samples[:,0,:]+samples[:,1,:])
+  samples[:,3,:] = l1*numpy.sin(samples[:,0,:])+l2*numpy.sin(samples[:,0,:]+samples[:,1,:])
   # Affichage des données (pour les ensembles 1, 2 et 3)
 
   #Creeper
@@ -411,20 +468,20 @@ if __name__ == '__main__':
   # samples3 = numpy.random.random((nsamples//3,2,1))
   # samples3[:,1,:] -= 1
   # samples = numpy.concatenate((samples1,samples2,samples3))
+  # plt.figure()
+  # plt.scatter(samples[:,0,0], samples[:,1,0])
+  # plt.xlim(-1,1)
+  # plt.ylim(-1,1)
+  # plt.suptitle('Donnees apprentissage')
+  # plt.show()
+  # Affichage des données (pour l'ensemble robotique)
   plt.figure()
-  plt.scatter(samples[:,0,0], samples[:,1,0])
-  plt.xlim(-1,1)
-  plt.ylim(-1,1)
+  plt.subplot(1,2,1)
+  plt.scatter(samples[:,0,0].flatten(),samples[:,1,0].flatten(),c='k')
+  plt.subplot(1,2,2)
+  plt.scatter(samples[:,2,0].flatten(),samples[:,3,0].flatten(),c='k')
   plt.suptitle('Donnees apprentissage')
   plt.show()
-  # Affichage des données (pour l'ensemble robotique)
-#  plt.figure()
-#  plt.subplot(1,2,1)
-#  plt.scatter(samples[:,0,0].flatten(),samples[:,1,0].flatten(),c='k')
-#  plt.subplot(1,2,2)
-#  plt.scatter(samples[:,2,0].flatten(),samples[:,3,0].flatten(),c='k')
-#  plt.suptitle('Donnees apprentissage')
-#  plt.show()
     
   # SIMULATION
   # Affichage des poids du réseau
@@ -452,7 +509,7 @@ if __name__ == '__main__':
       plt.clf()
       # Remplissage de la figure
       # TODO à remplacer par scatter_plot_2 pour les données robotiques
-      network.scatter_plot(True)
+      network.scatter_plot_2(True)
       # Affichage du contenu de la figure
       plt.pause(0.00001)
       plt.draw()
@@ -460,9 +517,21 @@ if __name__ == '__main__':
   if VERBOSE:
     # Désactivation du mode interactif
     plt.ioff()
-  # Affichage des poids du réseau
-  network.plot()
   # Affichage de l'erreur de quantification vectorielle moyenne après apprentissage
   print(f"η = {ETA}, σ = {SIGMA}, N = {N}")
   print("erreur de quantification vectorielle moyenne ", network.MSE(samples))
   print("dispertion ", network.dispertion())
+  motrice_pos1 = numpy.array([0.2, 0.5])
+  motrice_pos2 = numpy.array([2, 2])
+  step_size = 0.1
+
+  trajectory = network.predict_trajectory(motrice_pos1, motrice_pos2, step_size)
+
+  # Afficher la trajectoire
+  print('Trajectoire de', motrice_pos1, 'à', motrice_pos2, ':')
+  for position in trajectory:
+    print('  ', position)
+
+  # Affichage des poids du réseau
+  network.plot()
+
