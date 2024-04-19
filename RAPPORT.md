@@ -17,7 +17,7 @@ Si η = 0, alors nous avons :
 ![alt text](img/formule2.png)
 
 Selon la formule ci-dessus, si η = 0, alors ∆wji = 0 : le poids d'aucun neurone ne sera mis à jour.
-Par conséquent, la prochaine valeur des poids sera simplement égale à leur valeur courante.
+Par conséquent, la prochaine valeur des poids sera simplement égale à leur valeur courante et donc la valeur du neuron gagnant restera inchangée.
 
 ### Même question dans le cas où η = 1.
 
@@ -28,30 +28,27 @@ Donc j-j* = 0, et la formule devient :
 
 *Donc nous avons :* 
 
-![alt text](img/formule3.png)
+![alt text](img/formule3.png) <br/>
+![alt text](img/formule3.5.png)
 
 Dans le cas où η = 1, la mise à jour des poids pour le neurone gagnant est maximale. 
-De ce fait, la prochaine valeur pour le neurone gagnant sera égale à sa valeur actuelle, additionnée à la différence entre l'entrée et les poids actuels du neurone gagnant.
+De ce fait, la prochaine valeur pour le neurone gagnant sera égale a la valeur de l'entrée.
 
 ### Dans le cas où η ∈]0, 1[ (paramétrisation “normale”) où se situera le nouveau poids par rapport à W∗ et X en fonction de η (formule mathématique simple ou explication géométrique) ?
 
 Si η est compris entre 0 et 1, le nouveau poids sera situé sur la droite reliant le poids courant W(t) et la valeur d'entrée X.
 Le nouveau poids W(t+1) sera donné par :
-`W(t+1) = W(t) + η(X-W(t))`
-
-Le déplacement le long de cette droite diffère donc selon la valeur de η :
-Plus η est petit, plus le déplacement est faible, et plus le nouveau poids sera proche de W(t), mais plus η est grand, plus le déplacement sera important, et plus le nouveau poids s'éloignera de W(t) pour aller vers la valeur d'entrée.
 
 ![alt text](img/formule4.png)
 
-Le déplacement le long de cette droite diffère donc selon la valeur de η :
+Le déplacement le long de cette droite diffère donc selon la valeur de η.
 Plus η est petit, plus le déplacement est faible, et plus le nouveau poids sera proche de W(t), mais plus η est grand, plus le déplacement sera important, et plus le nouveau poids s'éloignera de W(t) pour aller vers la valeur d'entrée.
 
 Donc plus η est grand, plus le reseau apprendra vite, mais plus il y a de risque de ne pas converger vers la solution optimale. A l'inverse, plus η est petit, plus le reseau apprendra lentement, mais plus il y a de chance de converger vers la solution optimale.
 
 ### Que va-t-il se passer si η > 1 ?
 
-Si η > 1, le taux d'apprentissage sera très élevé, et le nouveau poids sera situé au-delà de X par rapport à W∗.
+Si η > 1, le taux d'apprentissage sera très élevé, et le nouveau poids sera situé au-delà de X.
 De ce fait, l'ajustement du poids sera amplifié, ce qui signifie que le poids se déplacera plus rapidement vers la position de X.
 
 ## 3.2 Influence de σ
@@ -207,9 +204,11 @@ En changeant la topologie de la carte les poids des neuronnes se repartissent di
 
 ## 4.4 Bras robotique
 
-Afin de retrouver la predire la position qu’aura le bras ́etant donne une position
-motrice il suffit juste de prendre le neuronne gagnant en ne prennant que en compte les 2 premiers poids de chaque neuronne. Ainsi, on peut retrouver la position motrice du bras en recuperant les 2 derniers poids du neuronne gagnant.
+Afin de retrouver la predire la position qu’aura le bras ́etant donne une position motrice il suffit juste de prendre le neuronne gagnant, et de prendre en compte que les 2 premiers poids du neuronne. 
+Ainsi, on peut retrouver la position motrice du bras en recuperant les 2 derniers poids du neuronne gagnant.
 
-Pour predire la position motrice ́etant donne une position spatiale il faut aussi prendre le neuronne gagnant mais en prenant en compte les 2 derniers poids de chaque neuronne. Ainsi, on peut retrouver la position spatiale du bras en recuperant les 2 premiers poids du neuronne gagnant.
+Pour predire la position motrice ́etant donne une position spatiale il faut aussi prendre le neuronne gagnant mais prendre en compte que les 2 derneirs poids du neuronne
+Ainsi, on peut retrouver la position spatiale du bras en recuperant les 2 premiers poids du neuronne gagnant.
 
-Afin de prédire la suite des positions du bras, il suffit de tracer une droite entre les deux positions motrices et spatiales et la parcourir en en prenant des points intermédiaires où le neuronne gagnant change. Ainsi on peut prédire la suite des positions du bras en fonction des neurones gagnants et des poids associés.
+Afin de prédire la suite des positions du bras, il suffit de tracer une droite entre les deux positions motrices et de la parcourir en en prenant des points intermédiaires où le neuronne gagnant change. 
+Ainsi on peut prédire la suite des positions du bras en fonction des neurones gagnants et des poids associés.
