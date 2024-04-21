@@ -17,7 +17,7 @@ Si η = 0, alors nous avons :
 ![alt text](img/formule2.png)
 
 Selon la formule ci-dessus, si η = 0, alors ∆wji = 0 : le poids d'aucun neurone ne sera mis à jour.
-Par conséquent, la prochaine valeur des poids sera simplement égale à leur valeur courante et donc la valeur du neuron gagnant restera inchangée.
+Par conséquent, la prochaine valeur des poids sera simplement égale à leur valeur courante et donc la valeur du neuronne gagnant restera inchangée.
 
 ### Même question dans le cas où η = 1.
 
@@ -121,43 +121,43 @@ Pour chacune des grandeurs ci dessous, nous présenterons dans cette partie diff
 
 -   taux d’apprentissage η
 
-Selon nous, η va influer sur la capacité des neurones à apprendre des entrées, mais des valeurs trop basses ou trop élevées pourrait être néfaste à cet apprentissage.
+<ins><b>hypothèse</b></ins>:  Selon nous, η va influer sur la capacité des neurones à apprendre des entrées, mais des valeurs trop basses ou trop élevées pourrait être néfaste à cet apprentissage.
 
 ![alt text](img/influence_eta.png)
 
-On constate que plus le taux d’apprentissage η augmente, plus la dispertion des poids augmentes. Quant à l'erreur de quantification vectorielle (EQV), pour η = 0, EQV est grand. De plus, il est difficile de le voir sur la courbe, mais dans le fichier excel, plus η augmente, plus EQV augmente petit à petit.
+<ins><b>résultat</b></ins>: On constate que plus le taux d’apprentissage η augmente, plus la dispertion des poids augmentes. Quant à l'erreur de quantification vectorielle (EQV), pour η = 0, EQV est grand. De plus, il est difficile de le voir sur la courbe, mais dans le fichier excel, plus η augmente, plus EQV augmente petit à petit.
 
 En executant le code, nous avons aussi constaté que le taux d'apprentissage influe sur la disposition des neurones : très resserrée quand η est très bas, et au contraire moins resserés quand η dépasse 1. Enfin, la dispertion des poids semble à peu près stable quand η ∈ [0,05; 1] avec une valeur moyenne d'environ 0,883 dans cette intervalle.
 
 -   largeur du voisinage σ
 
-Selon nous, σ influe sur la disposition des neurones sur la carte, c'est-à-dire s'ils seront plutôt resserrés entre eux ou non.
+<ins><b>hypothèse</b></ins>:  Selon nous, σ influe sur la disposition des neurones sur la carte, c'est-à-dire s'ils seront plutôt resserrés entre eux ou non.
 
 ![alt text](img/influence_sigma.png)
 
-Sur la courbe ci dessus, on constate que plus σ augmente, plus l'erreur de quantification vectorielle augmente également, mais plus la dispertion des poids diminue : les neurones se retrouvent davantage resserrés.
+<ins><b>résultat</b></ins>: Sur la courbe ci dessus, on constate que plus σ augmente, plus l'erreur de quantification vectorielle augmente également, mais plus la dispertion des poids diminue : les neurones se retrouvent davantage resserrés.
 
 L'idéal serait alors ici de choisir une valeur ni trop élevée ni trop basse pour σ, permettant de diminuer l'erreur de quantification vectorielle, tout en conservant une structure assez resserrée. Donc, sur la courbe on voit que le point d'absice σ où la dispertion et l'erreur de quantification se croise, est à σ = 6.
 
 
 -   nombre de pas de temps d’apprentissage N
 
-Selon nous, N est lié à la qualité de l'apprentissage des neurones, c'est-à-dire, que plus N sera grand, plus les neurones auront le temps d'apprendre, et plus leur disposition se stabilisera.
+<ins><b>hypothèse</b></ins>:  Selon nous, N est lié à la qualité de l'apprentissage des neurones, c'est-à-dire, que plus N sera grand, plus les neurones auront le temps d'apprendre, et plus leur disposition se stabilisera.
 
 ![alt text](img/influence_N.png)
 
-Sur la courbe, et après avoir éxecuté notre code pour différente valeur de N, nous avons constaté que plus le temps d'apprentissage est élevé, et plus les neurones vont pouvoir apprendre, ce qui entraîne une baisse significative de l'erreur de quantification vectorielle.
+<ins><b>résultat</b></ins>: Sur la courbe, et après avoir éxecuté notre code pour différente valeur de N, nous avons constaté que plus le temps d'apprentissage est élevé, et plus les neurones vont pouvoir apprendre, ce qui entraîne une baisse significative de l'erreur de quantification vectorielle.
 Cependant, l'auto-organisation semble se stabiliser dès N = 2500, avec une dispertion des poids plutot élevé (environ 0,87).
 
 Il nous apparaît donc évident de choisir une valeur de N supérieure à ce seuil de stabilisation, puisque la disposition des neurones ne changera pas davantage, mais qui permettra de baisser encore quelque peu l'erreur de quantification vectorielle.
 
 -   taille et forme de la carte
 
-Selon nous, plus la carte sera grande, et plus les neurones pourront prendre de la place, entraînant ainsi un relâchement dans leur disposition interne.
+<ins><b>hypothèse</b></ins>:  Selon nous, plus la carte sera grande, et plus les neurones pourront prendre de la place, entraînant ainsi un relâchement dans leur disposition interne.
 
 ![alt text](img/influence_taille_forme.png)
 
-Plus la taille de la carte augmente, plus l'erreur de quantification vectorielle diminue, et plus la disposition des neurones est lâche.
+<ins><b>résultat</b></ins>: Plus la taille de la carte augmente, plus l'erreur de quantification vectorielle diminue, et plus la disposition des neurones est lâche.
 On remarque cependant que inversement, plus la taille de l'image augmente plus la dispertion des poids va augmenter.
 
 Le choix de la carte va se faire selon ce que nous souhaitons représenter et en accord avec le problème à résoudre, selon le fait que nous voulons accorder de l'importance à EQV ou la dispertion des poids. A partir de `10x10`, on constate que la dispertion des poids est à 0.828, et elle augmente, mais petit à petit. Néanmoins, EQV est très faible (0.0255). Donc nous pourrions gardé cette valeur de `10x10`. 
@@ -166,7 +166,7 @@ Le choix de la carte va se faire selon ce que nous souhaitons représenter et en
 
 -   jeu de données
 
-Selon nous, les jeux de données vont influer sur la disposition des neurones sur la carte, étant donné que les dispositions des données d'entrée seront différentes. 
+<ins><b>hypothèse</b></ins>:  Selon nous, les jeux de données vont influer sur la disposition des neurones sur la carte, étant donné que les dispositions des données d'entrée seront différentes. 
 
 
 | Numéro du jeu de données | Jeu de données                                     | Erreur de quantification vectorielle | Dispertion des poids |
@@ -176,29 +176,47 @@ Selon nous, les jeux de données vont influer sur la disposition des neurones su
 | **3**                    | ![Jeu de données 3](img/jeu_de_données_3.png)      | 0,014898156                          | 0,785508665          |
 | **4**                    | ![Jeu de données 4](img/jeu_de_données_4.png)      | 0,008491655                          | 0,597403228          |
 
-Pour le jeu de données 1, on peut voir ci-dessous que les données forme une sorte de carré, lié aux données d'entrée uniformément réparties dans l'espace.
+## <ins>Pour le jeu de données 1</ins> 
+
+<ins><b>hypothèse</b></ins>: les données sont uniformément réparties dans l'espace <br/>
+
+<ins><b>résultat</b></ins>: on peut voir ci-dessous que les données forme une sorte de carré, lié aux données d'entrée uniformément réparties dans l'espace.
 
 ![alt text](img/jeu_de_données_fin_1.png)
 
-Pour le jeu de données 2, on peut voir ci-dessous que l'on constate un comportement un peu similaire que pour le jeu 1. Cependant, on peut remarquer que le côté en haut à droite semble être évité. Ce comportement est lié aux données d'entrée fournies, car ces dernières ne sont pas présentes sur le coin haut droit.
+## <ins>Pour le jeu de données 2</ins> 
+
+<ins><b>hypothèse</b></ins>: les données sont réparties de manière uniforme dans les 3/4 de l'espace, sauf dans le coin en haut à droite qui sera vide ou peu dense <br/>
+
+<ins><b>résultat</b></ins>: on peut voir ci-dessous que l'on constate un comportement un peu similaire que pour le jeu 1. Cependant, on peut remarquer que le côté en haut à droite semble être évité. Ce comportement est lié aux données d'entrée fournies, car ces dernières ne sont pas présentes sur le coin haut droit.
 
 ![alt text](img/jeu_de_données_fin_2.png)
 
-Pour le jeu de données 3, on peut voir ci-dessous que le côté en haut à droite et le côté en bas à gauche sont aussi évités. Ceci est de nouveau lié à une absence de données d'entrée fournies. Cette fois-ci, il manque données d'entrée sur le côté bas gauche, le côté haut droit
+## <ins>Pour le jeu de données 3</ins> 
+
+<ins><b>hypothèse</b></ins>: les données sont réparties de manière uniforme dans les 2/4 de l'espace, sauf dans le coin en haut à droite et le coin en bas à gauche qui seront vide ou peu dense <br/>
+
+<ins><b>résultat</b></ins>:  on peut voir ci-dessous que le côté en haut à droite et le côté en bas à gauche sont aussi évités. Ceci est de nouveau lié à une absence de données d'entrée fournies. Cette fois-ci, il manque données d'entrée sur le côté bas gauche, le côté haut droit
 
 
 ![alt text](img/jeu_de_données_fin_3.png)
 
-Pour le jeu de données 4, on peut voir ci-dessous que les poids des neurones sont bien plus resserrés que dans les zone où la donnée est plus dense.
+## <ins>Pour le jeu de données 4</ins>
+
+<ins><b>hypothèse</b></ins>: les données sont réparties de manière a recouvrir au maximum les données d'entrée<br/>
+
+<ins><b>résultat</b></ins>: on peut voir ci-dessous que les poids des neurones sont bien plus resserrés que dans les zone où la donnée est plus dense.
 
 ![alt text](img/jeu_de_données_fin_4.png)
 
 *Ainsi, selon le problème à traiter, il faudra donc bien choisir ses données d'entrée afin de s'assurer le meilleur apprentissage (et le plus adapté à la problématique) pour les neurones.*
 
 
-- La topologie de la carte
+- La topologie de la carte (hexagonale)
 
-En changeant la topologie de la carte les poids des neuronnes se repartissent différemment. Par exemple, en passant d'une topologie rectangulaire à une topologie hexagonale, les poids des neurones se repartissent de manière hexagonale.
+<ins><b>hypothèse</b></ins>: la topologie de la carte va influer sur la disposition des neurones, et donc sur leur apprentissage. Ainsi les liaisons entre les neurones devraient être de forme triangulaire et former un réseau hexagonal. <br/>
+
+<ins><b>résultat</b></ins>: En changeant la topologie de la carte les poids des neuronnes se repartissent différemment en suivan la topologie de la carte.
 
 ![alt text](img/topologie_hexagone.png)
 
@@ -207,8 +225,9 @@ En changeant la topologie de la carte les poids des neuronnes se repartissent di
 Afin de retrouver la predire la position qu’aura le bras ́etant donne une position motrice il suffit juste de prendre le neuronne gagnant, et de prendre en compte que les 2 premiers poids du neuronne. 
 Ainsi, on peut retrouver la position motrice du bras en recuperant les 2 derniers poids du neuronne gagnant.
 
-Pour predire la position motrice ́etant donne une position spatiale il faut aussi prendre le neuronne gagnant mais prendre en compte que les 2 derneirs poids du neuronne
+Pour predire la position motrice ́etant donne une position spatiale il faut aussi prendre le neuronne gagnant mais prendre en compte que les 2 derniers poids du neuronne
 Ainsi, on peut retrouver la position spatiale du bras en recuperant les 2 premiers poids du neuronne gagnant.
 
 Afin de prédire la suite des positions du bras, il suffit de tracer une droite entre les deux positions motrices et de la parcourir en en prenant des points intermédiaires où le neuronne gagnant change. 
 Ainsi on peut prédire la suite des positions du bras en fonction des neurones gagnants et des poids associés.
+![alt text](img/robot.png)
